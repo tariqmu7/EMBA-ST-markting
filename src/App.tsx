@@ -651,8 +651,8 @@ const ShareChart = () => {
     { name: "Others (regional, baqala)", value: 20, color: "#94a3b8" },
   ];
   return (
-    <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white rounded-2xl p-6 shadow-lg">
+    <div className="absolute inset-0 w-full h-full bg-white flex flex-col items-center justify-center p-8">
+      <div className="w-full max-w-md">
         <p className="text-xs font-bold uppercase tracking-widest text-[#001489] mb-3">Share of Egyptian dairy &amp; yogurt market — total = 100%</p>
         <div className="flex flex-col gap-3">
           {data.map(d => (
