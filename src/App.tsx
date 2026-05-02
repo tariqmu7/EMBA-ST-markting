@@ -690,15 +690,15 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { y: 24, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 180, damping: 24 } }
+  hidden: { y: 12, opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { type: "tween", ease: "easeOut", duration: 0.22 } }
 };
 
 const imgVariants = {
-  hidden: { scale: 0.9, opacity: 0, rotate: -3 },
-  visible: { 
-    scale: 1, opacity: 1, rotate: 0,
-    transition: { type: "spring", stiffness: 60, damping: 20 }
+  hidden: { scale: 0.96, opacity: 0 },
+  visible: {
+    scale: 1, opacity: 1,
+    transition: { type: "tween", ease: "easeOut", duration: 0.3 }
   }
 };
 
