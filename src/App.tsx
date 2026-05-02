@@ -720,7 +720,6 @@ const PageSection = ({ page, index }: { page: typeof pagesData[0], index: number
     >
       <MilkWaveTop />
       <FloatingDecorations colorClass={theme.textPrimary} id={page.id} />
-      <AnimatedShapes id={page.id} colorClass={theme.textPrimary} />
       {page.layout === "hero" && (
         <>
           <div className="absolute inset-0 z-0 opacity-30">
@@ -958,61 +957,57 @@ const PageSection = ({ page, index }: { page: typeof pagesData[0], index: number
 };
 
 const FloatingDecorations = ({ colorClass, id }: { colorClass: string, id: number }) => {
-  const elements = [
-    { Icon: Rocket, size: 36, left: "10%", duration: 15, delay: 0 },
-    { Icon: Leaf, size: 24, left: "25%", duration: 20, delay: 2 },
-    { Icon: Heart, size: 28, left: "45%", duration: 18, delay: 5 },
-    { Icon: Beaker, size: 36, left: "70%", duration: 22, delay: 1 },
-    { Icon: PlusCircle, size: 20, left: "85%", duration: 16, delay: 4 },
-    { Icon: Rocket, size: 28, left: "55%", duration: 14, delay: 7 },
-    { Icon: Activity, size: 32, left: "5%", duration: 19, delay: 3 },
-    { Icon: Apple, size: 26, left: "35%", duration: 17, delay: 8 },
-    { Icon: Globe, size: 40, left: "65%", duration: 25, delay: 2 },
-    { Icon: TrendingUp, size: 30, left: "90%", duration: 21, delay: 6 },
-    { Icon: Droplet, size: 24, left: "15%", duration: 16, delay: 9 },
-    { Icon: ShieldPlus, size: 34, left: "75%", duration: 23, delay: 11 },
-    { Icon: HeartPulse, size: 28, left: "30%", duration: 18, delay: 10 },
-    { Icon: Rocket, size: 22, left: "80%", duration: 15, delay: 13 },
-    { Icon: Cookie, size: 26, left: "50%", duration: 20, delay: 12 },
-    { Icon: Milk, size: 32, left: "20%", duration: 17, delay: 14 },
-    { Icon: Sparkles, size: 28, left: "95%", duration: 24, delay: 5 },
-    { Icon: Carrot, size: 30, left: "40%", duration: 19, delay: 15 },
-    { Icon: Rocket, size: 40, left: "60%", duration: 26, delay: 8 },
+  // 5 icons (down from 19) — drift only, no rotation. Cheaper paint per frame.
+  const icons = [
+    { Icon: Leaf,    size: 24, left: "15%", duration: 20, delay: 2 },
+    { Icon: Heart,   size: 28, left: "40%", duration: 18, delay: 5 },
+    { Icon: Beaker,  size: 32, left: "70%", duration: 22, delay: 1 },
+    { Icon: Apple,   size: 26, left: "85%", duration: 17, delay: 8 },
+    { Icon: Milk,    size: 30, left: "55%", duration: 19, delay: 11 },
+  ];
+  // 4 text watermarks — keep full rotation animation (Ahmed liked these).
+  const watermarks = [
     { text: "DANONE", size: 48, left: "22%", duration: 21, delay: 5 },
-    { text: "EGYPT", size: 40, left: "68%", duration: 24, delay: 12 },
+    { text: "EGYPT",  size: 40, left: "68%", duration: 24, delay: 12 },
     { text: "DANONE", size: 32, left: "82%", duration: 16, delay: 3 },
-    { text: "EGYPT", size: 28, left: "12%", duration: 19, delay: 9 },
+    { text: "EGYPT",  size: 28, left: "12%", duration: 19, delay: 9 },
   ];
 
   return (
     <div className={cn("absolute inset-0 overflow-hidden pointer-events-none z-0", colorClass)}>
-      {elements.map((el, i) => {
-        // Vary the duration, delay, position, and rotation based on the slide id
+      {icons.map((el, i) => {
         const offsetDelay = (el.delay + id * 1.5) % 15;
-        const variedDuration = el.duration + (id % 5) - 2; // slightly faster or slower
+        const variedDuration = el.duration + (id % 5) - 2;
         const leftPos = (parseInt(el.left) + id * 7) % 100;
-        const xSway = ((i + id) % 2 === 0 ? 30 + id * 2 : -30 - id * 2);
-        const variedScale = 0.5 + ((id + i) % 8) * 0.2; // more varied sizes
-
+        const variedScale = 0.6 + ((id + i) % 6) * 0.18;
         return (
           <motion.div
-            key={i}
-            className="absolute opacity-10 flex text-current items-center justify-center font-black tracking-widest"
-            initial={{ y: "110vh", x: 0, rotate: 0, scale: variedScale }}
-            animate={{
-              y: ["110vh", "-10vh"],
-              x: [0, xSway, 0],
-              rotate: [0, 180 + id * 15, 360],
-            }}
-            transition={{
-              duration: variedDuration,
-              delay: offsetDelay,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            style={{ left: `${leftPos}%`, fontSize: typeof el.size === 'number' && 'text' in el ? el.size : undefined }}
+            key={`icon-${i}`}
+            className="absolute opacity-10 flex text-current items-center justify-center"
+            initial={{ y: "110vh", scale: variedScale }}
+            animate={{ y: ["110vh", "-10vh"] }}
+            transition={{ duration: variedDuration, delay: offsetDelay, repeat: Infinity, ease: "linear" }}
+            style={{ left: `${leftPos}%`, willChange: "transform" }}
           >
-            {el.Icon ? <el.Icon size={el.size} /> : <span>{el.text}</span>}
+            <el.Icon size={el.size} />
+          </motion.div>
+        );
+      })}
+      {watermarks.map((el, i) => {
+        const offsetDelay = (el.delay + id * 1.5) % 15;
+        const variedDuration = el.duration + (id % 5) - 2;
+        const leftPos = (parseInt(el.left) + id * 7) % 100;
+        const xSway = ((i + id) % 2 === 0 ? 30 + id * 2 : -30 - id * 2);
+        return (
+          <motion.div
+            key={`text-${i}`}
+            className="absolute opacity-10 flex text-current items-center justify-center font-black tracking-widest"
+            initial={{ y: "110vh", x: 0, rotate: 0 }}
+            animate={{ y: ["110vh", "-10vh"], x: [0, xSway, 0], rotate: [0, 180 + id * 15, 360] }}
+            transition={{ duration: variedDuration, delay: offsetDelay, repeat: Infinity, ease: "linear" }}
+            style={{ left: `${leftPos}%`, fontSize: el.size, willChange: "transform" }}
+          >
+            <span>{el.text}</span>
           </motion.div>
         );
       })}
