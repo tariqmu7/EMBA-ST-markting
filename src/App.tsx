@@ -685,13 +685,13 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.1 }
+    transition: { staggerChildren: 0.04, delayChildren: 0 }
   }
 };
 
 const itemVariants = {
-  hidden: { y: 40, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 80, damping: 20 } }
+  hidden: { y: 24, opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 180, damping: 24 } }
 };
 
 const imgVariants = {
@@ -1159,7 +1159,7 @@ export default function App() {
     const goTo = (id: number) => {
       const el = document.querySelector(`[data-id="${id}"]`) as HTMLElement | null;
       if (el && containerRef.current) {
-        containerRef.current.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
+        containerRef.current.scrollTo({ top: el.offsetTop, behavior: 'auto' });
       }
     };
     const onKey = (e: KeyboardEvent) => {
