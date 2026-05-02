@@ -685,20 +685,20 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.04, delayChildren: 0 }
+    transition: { staggerChildren: 0.15, delayChildren: 0.1 }
   }
 };
 
 const itemVariants = {
-  hidden: { y: 12, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { type: "tween", ease: "easeOut", duration: 0.22 } }
+  hidden: { y: 40, opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 80, damping: 20 } }
 };
 
 const imgVariants = {
-  hidden: { scale: 0.96, opacity: 0 },
+  hidden: { scale: 0.9, opacity: 0, rotate: -3 },
   visible: {
-    scale: 1, opacity: 1,
-    transition: { type: "tween", ease: "easeOut", duration: 0.3 }
+    scale: 1, opacity: 1, rotate: 0,
+    transition: { type: "spring", stiffness: 60, damping: 20 }
   }
 };
 
@@ -1154,7 +1154,7 @@ export default function App() {
     const goTo = (id: number) => {
       const el = document.querySelector(`[data-id="${id}"]`) as HTMLElement | null;
       if (el && containerRef.current) {
-        containerRef.current.scrollTo({ top: el.offsetTop, behavior: 'auto' });
+        containerRef.current.scrollTo({ top: el.offsetTop, behavior: 'smooth' });
       }
     };
     const onKey = (e: KeyboardEvent) => {
