@@ -59,7 +59,7 @@ const rawPagesData = [
     layout: "hero",
     title: "Danone",
     subtitle: "One Planet · One Health",
-    content: "Presented by: Ahmed Sabri · Ahmed Awad · Tarik",
+    content: "Presented by: Ahmed Sabri · Ahmed Awad · Tariq Salama",
     icon: Globe,
     media: "img/danone-w.png",
     details: ["The world's largest yogurt company — and, since November 2025, the world's largest B Corp food company. [3][8][9]", "Our journey today: Global picture → Egypt → SWOT → STP → 4 Ps → 5 marketing problems."]
