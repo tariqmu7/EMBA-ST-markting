@@ -160,12 +160,12 @@ const rawPagesData = [
     theme: "light",
     layout: "stats",
     title: "Egyptian Dairy Market",
-    subtitle: "Structural growth headroom",
-    content: "Each Egyptian drinks ~22 kg of milk per year — less than half of Europe's level. Plenty of room to grow.",
+    subtitle: "A huge, fast-growing market [25]",
+    content: "$2.59B today, more than doubling to $5.59B by 2034. With 110M+ consumers and 8.49% annual growth, this is a market built for Danone.",
     icon: TrendingUp,
     media: "img/unsplash-1550583724-b2692b85b150.jpg",
-    stats: [{"label":"Market size 2025","value":"$2.59B"},{"label":"Volume growth 2025","value":"2.3%"},{"label":"Dairy / person / year","value":"51.4 kg"},{"label":"Milk / person / year","value":"22.1 kg"}],
-    details: ["Far below European and Gulf benchmarks → room to grow.","Regulator: National Food Safety Authority (NFSA, est. 2017)."]
+    stats: [{"label":"Market size 2025 [25]","value":"$2.59B"},{"label":"Forecast 2034 [25]","value":"$5.59B"},{"label":"Annual growth (CAGR) [25]","value":"8.49%"},{"label":"Egyptian consumers","value":"110M+"}],
+    details: ["Market more than doubles in value over the forecast period [25].","Growth driven by population, urbanization, and rising incomes [25].","Regulator: National Food Safety Authority (NFSA, est. 2017)."]
   },
   {
     theme: "blue",
